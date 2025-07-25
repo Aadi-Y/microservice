@@ -1,2 +1,12 @@
 const logger = require("../utils/logger");
-console.log(logger);
+
+const errorHandler = (err,req,res,next) => {
+    logger.error(err.stack);
+
+    res.status(err.status || 500).json({
+        error:true,
+        message:err.message || "Internal server error"
+    })
+}
+
+module.exports = errorHandler;
